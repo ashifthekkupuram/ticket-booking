@@ -1,0 +1,5 @@
+CREATE DATABASE identity;
+CREATE DATABASE event;
+CREATE DATABASE reservation;
+CREATE DATABASE payment;
+CREATE DATABASE ticket;

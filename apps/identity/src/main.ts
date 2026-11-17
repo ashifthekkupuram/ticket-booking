@@ -3,6 +3,6 @@ import { IdentityModule } from './identity.module.js';
 
 async function bootstrap() {
   const app = await NestFactory.create(IdentityModule);
-  await app.listen(process.env.port ?? 3000);
+  await app.listen(process.env.IDENTITY_PORT ?? 3000);
 }
 await bootstrap();

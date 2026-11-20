@@ -1,12 +1,15 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
+
 import { EventService } from './event.service.js';
+import { GetEventsQueryDto } from './dto/get-events-query-dto.js';
 
 @Controller()
 export class EventController {
   constructor(private readonly eventService: EventService) {}
 
-  @Get()
-  getHello(): string {
-    return this.eventService.getHello();
+  @Get('events')
+  getEvents(@Query() q: GetEventsQueryDto) {
+    return this.eventService.getEvents(q.page, q.search);
   }
+
 }

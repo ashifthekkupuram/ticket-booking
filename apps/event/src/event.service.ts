@@ -1,5 +1,10 @@
-import { Injectable, Inject, NotFoundException } from '@nestjs/common';
-import { or, ilike, and, asc, gte, eq } from 'drizzle-orm';
+import {
+  Injectable,
+  Inject,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
+import { or, ilike, and, asc, gte, eq, inArray } from 'drizzle-orm';
 
 import { type Db, DB } from './db/db.module.js';
 import { event, venue, eventSeat, seat } from './db/schema.js';
@@ -75,5 +80,33 @@ export class EventService {
       .orderBy(asc(seat.section), asc(seat.row), asc(seat.seatNumber));
 
     return { seats };
+  }
+
+  async getEventSeatsPrices(ids: string[]) {
+    const duplicateExist = ids.length !== new Set(ids).size;
+
+    if (duplicateExist) {
+      throw new BadRequestException('Duplicate Id exist');
+    }
+
+    const seats = await this.db
+      .select({
+        eventSeatId: eventSeat.id,
+        price: eventSeat.price,
+        eventId: eventSeat.eventId,
+      })
+      .from(eventSeat)
+      .where(inArray(eventSeat.id, ids));
+
+    const existingSeatsIds = new Set(seats.map((s) => s.eventSeatId));
+    const missingSeats = ids.filter((id) => !existingSeatsIds.has(id));
+
+    if (missingSeats.length > 0) {
+      throw new NotFoundException(
+        `Seats with ${missingSeats.join(',')} doesn't exist.`,
+      );
+    }
+
+    return { seatPrices: seats };
   }
 }

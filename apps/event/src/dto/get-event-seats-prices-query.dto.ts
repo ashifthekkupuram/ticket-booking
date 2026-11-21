@@ -7,15 +7,17 @@ import {
   IsUUID,
 } from 'class-validator';
 
-export class GetEventSeatPriceQueryDto {
+import { MAX_SEATS_PER_RESERVATION } from '../common/constants.js';
+
+export class GetEventSeatPricesQueryDto {
   @Transform(({ value }) =>
     typeof value === 'string'
-      ? value.split(',').map((id) => id.trim())
-      : undefined,
+      ? value.split(',').map((id) => id.trim()).filter((id) => id)
+      : value,
   )
   @IsArray()
   @ArrayNotEmpty()
-  @ArrayMaxSize(5)
+  @ArrayMaxSize(MAX_SEATS_PER_RESERVATION)
   @ArrayUnique()
   @IsUUID('all', { each: true })
   ids!: string[];

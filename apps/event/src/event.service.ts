@@ -103,7 +103,7 @@ export class EventService {
 
     if (missingSeats.length > 0) {
       throw new NotFoundException(
-        `Seats with ${missingSeats.join(',')} doesn't exist.`,
+        `Event seats not found: ${missingSeats.join(',')}`,
       );
     }
 

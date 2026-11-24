@@ -1,1 +1,1 @@
-export const MAX_SEATS_PER_RESERVATION = 5;
+export const EVENTS_PAGE_SIZE = 10;

@@ -9,8 +9,7 @@ import { or, ilike, and, asc, gte, eq, inArray } from 'drizzle-orm';
 import { type Db, DB } from './db/db.module.js';
 import { event, venue, eventSeat, seat } from './db/schema.js';
 import { escapeLike } from './common/escape-like.js';
-
-const EVENTS_PAGE_SIZE = 10;
+import { EVENTS_PAGE_SIZE } from './common/constants.js';
 
 @Injectable()
 export class EventService {

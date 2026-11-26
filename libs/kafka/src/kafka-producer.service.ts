@@ -33,7 +33,7 @@ export class KafkaProducerService
   async publish(envelope: AnyEnvelope, key: string) {
     await this.producer.send({
       topic: envelope.event_type,
-      acks: 1,
+      acks: -1,
       messages: [{ key, value: JSON.stringify(envelope) }],
     });
   }

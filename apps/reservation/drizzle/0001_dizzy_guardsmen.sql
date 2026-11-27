@@ -1,0 +1,2 @@
+ALTER TABLE "reservation_seat" ADD COLUMN "price" integer NOT NULL;--> statement-breakpoint
+ALTER TABLE "reservation_seat" ADD CONSTRAINT "ck_reservation_seat_price_positive" CHECK ("reservation_seat"."price" > 0);

@@ -7,6 +7,7 @@ import { DbModule, DB } from './db/db.module.js';
 import { KafkaModule } from '@app/kafka';
 import { InboxModule } from '@app/inbox';
 import { OutboxModule } from '@app/outbox';
+import { EventClient } from './event.client.js';
 
 @Module({
   imports: [
@@ -17,6 +18,6 @@ import { OutboxModule } from '@app/outbox';
     InboxModule.forRoot({ db: DB }),
   ],
   controllers: [ReservationController],
-  providers: [ReservationService],
+  providers: [ReservationService, EventClient],
 })
 export class ReservationModule {}

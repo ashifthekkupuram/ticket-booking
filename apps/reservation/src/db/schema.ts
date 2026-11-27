@@ -8,6 +8,8 @@ import {
   index,
   uniqueIndex,
   foreignKey,
+  integer,
+  check,
 } from 'drizzle-orm/pg-core';
 
 const timestamps = {
@@ -56,6 +58,7 @@ export const reservationSeat = pgTable(
     id: uuid('id').primaryKey().defaultRandom(),
     reservationId: uuid('reservation_id').notNull(),
     eventSeatId: uuid('event_seat_id').notNull(),
+    price: integer('price').notNull(),
     status: reservationStatus('status').default('PENDING').notNull(),
     ...timestamps,
   },
@@ -69,5 +72,6 @@ export const reservationSeat = pgTable(
     uniqueIndex('uq_reservation_seat_active')
       .on(table.eventSeatId)
       .where(sql`${table.status} IN ('PENDING','CONFIRMED')`),
+    check('ck_reservation_seat_price_positive', sql`${table.price} > 0`),
   ],
 );

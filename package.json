@@ -23,8 +23,10 @@
     "db:event:generate": "drizzle-kit generate --config apps/event/drizzle.config.ts",
     "db:event:migrate": "drizzle-kit migrate --config apps/event/drizzle.config.ts",
     "db:event:seed": "tsx apps/event/src/db/seed.ts",
-    "db:reservation:generate":"drizzle-kit generate --config apps/reservation/drizzle.config.ts",
-    "db:reservation:migrate": "drizzle-kit migrate --config apps/reservation/drizzle.config.ts"
+    "db:reservation:generate": "drizzle-kit generate --config apps/reservation/drizzle.config.ts",
+    "db:reservation:migrate": "drizzle-kit migrate --config apps/reservation/drizzle.config.ts",
+    "db:payment:generate": "drizzle-kit generate --config apps/payment/drizzle.config.ts",
+    "db:payment:migrate": "drizzle-kit migrate --config apps/payment/drizzle.config.ts"
   },
   "dependencies": {
     "@nestjs/common": "^12.0.1",
